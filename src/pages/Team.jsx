@@ -4,7 +4,8 @@ import React from 'react';
  * Using BASE_URL ensures images load correctly on GitHub Pages subfolders and 
  * prevents the build from failing if the file is not yet committed to the repo.
  */
-const coreyPic = `${import.meta.env.BASE_URL || '/'}images/corey.webp`;
+const baseUrl = import.meta.env.BASE_URL || '/';
+const coreyPic = `${baseUrl.endsWith('/') ? baseUrl : baseUrl + '/'}images/corey.webp`;
 
 function Team() {
   return (
