@@ -1,6 +1,10 @@
-// We use a string path here to prevent build breaks if the asset is missing from the repository.
-// Ensure the image is located at /public/images/corey.webp
-const coreyPic = '/images/corey.webp';
+import React from 'react';
+
+/**
+ * Using BASE_URL ensures images load correctly on GitHub Pages subfolders and 
+ * prevents the build from failing if the file is not yet committed to the repo.
+ */
+const coreyPic = `${import.meta.env.BASE_URL || '/'}images/corey.webp`;
 
 function Team() {
   return (
