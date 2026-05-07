@@ -1,4 +1,6 @@
-import coreyPic from '../images/corey.webp';
+// We use a string path here to prevent build breaks if the asset is missing from the repository.
+// Ensure the image is located at /public/images/corey.webp
+const coreyPic = '/images/corey.webp';
 
 function Team() {
   return (
