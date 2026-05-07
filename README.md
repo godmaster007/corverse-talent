@@ -114,6 +114,12 @@ Edit the color palette in `src/styles.css`:
 2. Add your images (logos, team photos, etc.)
 3. Import and use in components
 
+### Custom Agents
+
+This project includes a custom AI agent configuration to assist with website development:
+
+- [Staffing Agency Website Builder](.github/agents/staffing-agency-website.agent.md)
+
 ## Building for Production
 
 ```bash
