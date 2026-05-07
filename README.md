@@ -98,7 +98,7 @@ Edit the content in `src/pages/*.jsx` files directly.
 
 For the original website copy draft and messaging notes, see:
 
-- Website Copy Draft
+- [Website Copy Draft](website-copy-draft.md)
 
 ### Update Colors
 
