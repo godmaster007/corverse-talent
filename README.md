@@ -65,7 +65,7 @@ To use a custom domain like `corverse-talent.com`:
 
 ## File Structure
 
-```md
+```text
 corverse-talent/
 ├── src/
 │   ├── pages/           # Page components
