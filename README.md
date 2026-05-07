@@ -40,9 +40,8 @@ Replace `YOUR_USERNAME` with your actual GitHub username.
 
 1. Go to your GitHub repository settings
 2. Scroll down to **Pages** section
-3. Under "Source," select **Deploy from a branch**
-4. Choose branch: `gh-pages`
-5. Click **Save**
+3. Under "Build and deployment" > "Source", select **GitHub Actions**
+4. GitHub will now use the `.github/workflows/deploy.yml` file to handle builds.
 
 ### 4. Automatic Deployment
 
