@@ -96,6 +96,10 @@ corverse-talent/
 
 Edit the content in `src/pages/*.jsx` files directly.
 
+For the original website copy draft and messaging notes, see:
+
+- Website Copy Draft
+
 ### Update Colors
 
 Edit the color palette in `src/styles.css`:
