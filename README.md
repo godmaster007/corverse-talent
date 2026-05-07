@@ -47,6 +47,7 @@ Replace `YOUR_USERNAME` with your actual GitHub username.
 ### 4. Automatic Deployment
 
 The GitHub Actions workflow (`.github/workflows/deploy.yml`) will:
+
 - Automatically build the site whenever you push to `main`
 - Deploy to the `gh-pages` branch
 - Your site will be live at: `https://YOUR_USERNAME.github.io/corverse-talent/`
@@ -64,7 +65,7 @@ To use a custom domain like `corverse-talent.com`:
 
 ## File Structure
 
-```
+```md
 corverse-talent/
 ├── src/
 │   ├── pages/           # Page components
@@ -98,6 +99,7 @@ Edit the content in `src/pages/*.jsx` files directly.
 ### Update Colors
 
 Edit the color palette in `src/styles.css`:
+
 - Primary blue: `#1d3b6f` → change to your brand color
 - Text color: `#111111`
 - Accent: `#e6e8eb`
@@ -118,4 +120,4 @@ This creates an optimized `dist/` folder ready for deployment.
 
 ---
 
-**Questions?** Check the Vite docs: https://vitejs.dev or React Router: https://reactrouter.com
+**Questions?** Check the Vite docs: <https://vitejs.dev> or React Router: <https://reactrouter.com>
