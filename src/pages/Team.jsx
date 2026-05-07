@@ -1,3 +1,5 @@
+import coreyPic from '../images/corey.webp';
+
 function Team() {
   return (
     <section className="page page-team">
@@ -11,7 +13,9 @@ function Team() {
 
       <div className="team-grid">
         <article className="team-card">
-          <div className="team-image-placeholder"></div>
+          <div className="team-image">
+            <img src={coreyPic} alt="Corey Williams" />
+          </div>
           <h2>Corey Williams</h2>
           <p className="role">CEO & Co-Founder</p>
           <div className="bio">
