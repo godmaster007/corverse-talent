@@ -1,38 +1,55 @@
+import React from 'react';
+import Hero from '../components/Hero.jsx';
 import { Link } from 'react-router-dom';
 
-function Candidates() {
+const Candidates = () => {
   return (
-    <section className="page page-candidates">
-      <div className="section-intro">
-        <p className="eyebrow">For Candidates</p>
-        <h1>Your next role, elevated.</h1>
-        <p className="lead">
-          Corverse Talent connects skilled professionals with premium companies that value expertise, ambition, and long-term impact.
-        </p>
-      </div>
+    <div className="page fade-in">
+      <Hero 
+        eyebrow="For Candidates"
+        title="Your Next Role, Elevated."
+        lead="Corverse Talent helps talented professionals find opportunities with companies that value expertise, ambition, and long-term impact. We focus on roles that offer thoughtful growth, strong culture, and meaningful work. Our candidate experience is personal, transparent, and built around your goals."
+        primaryCta="Submit Your Resume"
+        primaryLink="/contact"
+      />
 
-      <div className="content-grid">
-        <div>
-          <h2>How it works</h2>
-          <ol>
-            <li>Submit your resume or connect with our team.</li>
-            <li>We review your experience and career priorities.</li>
-            <li>We match you with roles aligned to your expertise and ambition.</li>
-            <li>We guide you through interviews, offers, and transitions.</li>
-          </ol>
+      <section style={{ marginTop: '6rem' }}>
+        <span className="eyebrow">The Process</span>
+        <h2>How It Works</h2>
+        
+        <div className="feature-grid">
+          <div className="feature-card">
+            <h3>1. Connect</h3>
+            <p>Submit your resume or connect with our team.</p>
+          </div>
+          <div className="feature-card">
+            <h3>2. Review</h3>
+            <p>We review your experience and career priorities.</p>
+          </div>
+          <div className="feature-card">
+            <h3>3. Match</h3>
+            <p>We match you with roles that align to your expertise and ambition.</p>
+          </div>
+          <div className="feature-card">
+            <h3>4. Guide</h3>
+            <p>We guide you through interviews, offers, and transitions.</p>
+          </div>
         </div>
-        <div>
-          <h2>What you can expect</h2>
-          <ul>
-            <li>Curated opportunities at premium organizations</li>
-            <li>A respectful, confidential process</li>
-            <li>Clear communication and dedicated support</li>
+      </section>
+
+      <section style={{ marginTop: '8rem' }}>
+        <div className="hero-panel-card">
+          <span className="eyebrow">The Standard</span>
+          <h2>What You Can Expect</h2>
+          <ul style={{ marginTop: '2rem', fontSize: '1.125rem' }}>
+            <li><strong>Tailored opportunities</strong> at premium organizations</li>
+            <li><strong>A respectful, confidential</strong> process</li>
+            <li><strong>Clear communication</strong> and dedicated support</li>
           </ul>
-          <Link className="button button-primary" to="/contact">Submit Your Resume</Link>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
-}
+};
 
 export default Candidates;

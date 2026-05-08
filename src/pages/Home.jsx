@@ -1,55 +1,88 @@
+import React from 'react';
+import Hero from '../components/Hero.jsx';
+import ServiceCard from '../components/ServiceCard.jsx';
 import { Link } from 'react-router-dom';
 
-function Home() {
+const Home = () => {
   return (
-    <section className="page page-home">
-      <div className="hero-section">
-        <div className="hero-copy">
-          <p className="eyebrow">Specialized Staffing & Recruitment</p>
-          <h1>Connecting industry leaders with exceptional talent.</h1>
-          <p className="lead">
-            Corverse Talent combines boutique precision with global reach to deliver a high-end
-            recruitment experience for companies and candidates who expect more.
-          </p>
-          <div className="hero-actions">
-            <Link className="button button-primary" to="/clients">Find Talent</Link>
-            <Link className="button button-secondary" to="/candidates">Find a Role</Link>
-          </div>
-        </div>
-        <div className="hero-panel">
-          <div className="hero-panel-card">
-            <p className="panel-label">Our promise</p>
-            <h2>We don’t just fill seats; we build the foundations of great companies.</h2>
-            <ul>
-              <li>Boutique luxury service with technical recruiting expertise</li>
-              <li>Rapid, reliable placement for critical roles</li>
-              <li>Refined experience for clients and candidates alike</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <section className="feature-grid">
-        <div className="feature-card">
-          <h3>Executive Search</h3>
-          <p>Identify senior leaders and strategic hires who shape company direction and culture.</p>
-        </div>
-        <div className="feature-card">
-          <h3>Permanent Placement</h3>
-          <p>Staff critical functions with professionals who contribute immediately and stay for the long term.</p>
-        </div>
-        <div className="feature-card">
-          <h3>Specialized Technical Roles</h3>
-          <p>Hire the domain experts who move high-impact engineering, product, and technology initiatives forward.</p>
-        </div>
-      </section>
+    <div className="page fade-in">
+      <Hero 
+        eyebrow="Corverse Talent"
+        title="Connecting industry leaders with exceptional talent."
+        lead="At Corverse Talent, we make the match that changes the course of your business. We bring boutique precision, global reach, and a modern recruitment experience to every search."
+        primaryCta="Work With Us"
+        primaryLink="/contact"
+      />
 
       <section className="brand-bar">
         <p>Trusted by ambitious teams and innovative companies.</p>
-        <div className="logos">[Partner logos go here]</div>
+        <div className="logos">
+          [Logo bar placeholder for partner brands, industry publications, and featured collaborations]
+        </div>
       </section>
-    </section>
+
+      <section style={{ marginTop: '6rem' }}>
+        <span className="eyebrow">Why Corverse Talent</span>
+        <h2>High-end staffing for ambitious organizations.</h2>
+        <p>We are the high-end staffing partner for ambitious organizations and ambitious professionals. Our process is personal, our network is deeply rooted in specialized markets, and our focus is always on quality rather than volume.</p>
+        
+        <div className="feature-grid">
+          <div className="feature-card">
+            <h3>Boutique Luxury Service</h3>
+            <p>Combining technical recruiting expertise with a personalized touch.</p>
+          </div>
+          <div className="feature-card">
+            <h3>Rapid & Reliable</h3>
+            <p>Placement for critical roles without sacrificing quality.</p>
+          </div>
+          <div className="feature-card">
+            <h3>Refined Experience</h3>
+            <p>A seamless, respectful process for clients and candidates alike.</p>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ marginTop: '8rem' }}>
+        <div className="content-grid">
+          <div className="service-card">
+            <span className="eyebrow">For Clients</span>
+            <h2>Find Talent</h2>
+            <p>Connect with senior leaders, engineering experts, and specialized talent who shape the future of your business.</p>
+            <ul>
+              <li>Executive Search for market-moving hires</li>
+              <li>Permanent Placement for strategic growth teams</li>
+              <li>Technical recruitment designed for precision</li>
+            </ul>
+            <div style={{ marginTop: '2rem' }}>
+              <Link to="/clients" className="cta-link">Hire Top Talent</Link>
+            </div>
+          </div>
+
+          <div className="service-card">
+            <span className="eyebrow">For Candidates</span>
+            <h2>Find a Role</h2>
+            <p>Advance your career with opportunities that fit your expertise, ambition, and lifestyle. We partner with companies that value thoughtful growth.</p>
+            <ul>
+              <li>Submit your resume for tailored opportunities</li>
+              <li>Receive curated roles only after a personal review</li>
+              <li>Enjoy a seamless, respectful hiring experience</li>
+            </ul>
+            <div style={{ marginTop: '2rem' }}>
+              <Link to="/candidates" className="cta-link">Explore Roles</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ marginTop: '8rem', textAlign: 'center' }}>
+        <span className="eyebrow">Our Promise</span>
+        <h2>We don't just fill seats. We build the foundations of great companies.</h2>
+        <div className="hero-actions" style={{ justifyContent: 'center', marginTop: '2rem' }}>
+          <Link to="/contact" className="button button-primary">Start Your Search</Link>
+        </div>
+      </section>
+    </div>
   );
-}
+};
 
 export default Home;

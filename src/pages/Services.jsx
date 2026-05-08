@@ -1,68 +1,70 @@
-function Services() {
+import React from 'react';
+import Hero from '../components/Hero.jsx';
+import ServiceCard from '../components/ServiceCard.jsx';
+import { Link } from 'react-router-dom';
+
+const Services = () => {
   return (
-    <section className="page page-services">
-      <div className="section-intro">
-        <p className="eyebrow">Services</p>
-        <h1>Specialized recruitment services for premium hires.</h1>
-        <p className="lead">
-          We offer tailored search and placement solutions for executive, permanent, and technical roles that require precision and speed.
-        </p>
-      </div>
+    <div className="page fade-in">
+      <Hero 
+        eyebrow="Our Services"
+        title="Comprehensive recruitment solutions for critical functions."
+        lead="We offer specialized staffing solutions designed to meet the exact needs of ambitious organizations."
+      />
 
-      <div className="service-list">
-        <article className="service-card">
-          <h2>Executive Search</h2>
-          <p>
-            Discreet searches for leadership hires that define culture and company direction. We source senior executives and board-level
-            professionals who bring influence, vision, and the right strategic fit.
-          </p>
-          <ul>
-            <li>High-impact leadership hires</li>
-            <li>In-depth assessment of strategic capabilities</li>
-            <li>Selective sourcing and confidential delivery</li>
-          </ul>
-        </article>
+      <section className="content-grid" style={{ marginTop: '4rem' }}>
+        <ServiceCard 
+          title="Executive Search"
+          description="For leadership hires that define company direction and culture. We identify board-level executives, senior managers, and chief officers who bring influence, vision, and the right strategic fit."
+          features={[
+            "Discreet searches for high-impact roles",
+            "In-depth assessment of leadership capabilities",
+            "A selective approach to candidate sourcing and vetting"
+          ]}
+        />
+        
+        <ServiceCard 
+          title="Permanent Placement"
+          description="Staff critical functions with professionals who will contribute immediately and stay for the long term. Our permanent placement service is ideal for teams that need reliable, sustainable hires."
+          features={[
+            "Technical specialists, experienced operators, and growth-minded professionals",
+            "Clear evaluation of fit, skills, and long-term potential",
+            "Support across interview, offer, and onboarding stages"
+          ]}
+        />
 
-        <article className="service-card">
-          <h2>Permanent Placement</h2>
-          <p>
-            Find professionals who are ready to contribute immediately and stay for the long term. This service is ideal for teams built
-            around stability, performance, and growth.
-          </p>
-          <ul>
-            <li>Experienced operators and technical specialists</li>
-            <li>Skills, culture, and potential aligned assessments</li>
-            <li>Support through interview, offer, and onboarding phases</li>
-          </ul>
-        </article>
+        <ServiceCard 
+          title="Specialized Technical Roles"
+          description="Hire the talent that moves technical initiatives forward—from engineering leaders to niche experts in AI, cloud, data, and product."
+          features={[
+            "Targeted searches in high-demand technical disciplines",
+            "Candidates with proven domain experience and cultural fit",
+            "Rapid access to a curated talent pool"
+          ]}
+        />
 
-        <article className="service-card">
-          <h2>Specialized Technical Roles</h2>
-          <p>
-            Hire domain experts in AI, cloud, data, product, and engineering. We connect you with candidates who bring both deep technical
-            experience and the ability to deliver in fast-moving environments.
-          </p>
-          <ul>
-            <li>Targeted sourcing for technical disciplines</li>
-            <li>Proven domain experience and cultural fit</li>
-            <li>Curated access to a premium candidate pool</li>
-          </ul>
-        </article>
+        <ServiceCard 
+          title="Talent Advisory"
+          description="We consult on market intelligence, hiring strategy, and compensation insights to help you make confident talent investments."
+          features={[
+            "Benchmarking for executive and technical hires",
+            "Hiring strategy aligned to growth plans",
+            "Market clarity for better decisions"
+          ]}
+        />
+      </section>
 
-        <article className="service-card">
-          <h2>Talent Advisory</h2>
-          <p>
-            Gain insight into market conditions, compensation expectations, and hiring strategy so you can make confident talent decisions.
+      <section style={{ marginTop: '8rem', textAlign: 'center' }}>
+        <div className="hero-panel-card">
+          <h2>Ready to transform your team?</h2>
+          <p style={{ margin: '0 auto 2rem', maxWidth: '600px' }}>
+            Let's discuss how we can help you find the talent you need to succeed.
           </p>
-          <ul>
-            <li>Benchmarking for executive and technical hires</li>
-            <li>Hiring strategy aligned to growth plans</li>
-            <li>Market clarity for better decisions</li>
-          </ul>
-        </article>
-      </div>
-    </section>
+          <Link to="/contact" className="button button-primary">Discuss Your Needs</Link>
+        </div>
+      </section>
+    </div>
   );
-}
+};
 
 export default Services;

@@ -1,52 +1,66 @@
-function About() {
+import React from 'react';
+import Hero from '../components/Hero.jsx';
+import { Link } from 'react-router-dom';
+
+const About = () => {
   return (
-    <section className="page page-about">
-      <div className="section-intro">
-        <p className="eyebrow">About Corverse Talent</p>
-        <h1>Trust, clarity, and a personal approach to recruitment.</h1>
-        <p className="lead">
-          We believe the best talent is found through relationships, not algorithms. Corverse Talent was founded to bring a premium
-          recruitment experience to specialized hiring markets.
-        </p>
-      </div>
+    <div className="page fade-in">
+      <Hero 
+        eyebrow="About Us"
+        title="We believe the best talent is found through relationships, not algorithms."
+        lead="Corverse Talent was founded to bring a new kind of recruitment experience to specialized staffing. Our approach blends boutique care with deep market insight so our clients and candidates feel confident at every stage."
+      />
 
-      <div className="content-grid">
-        <div>
-          <h2>Our story</h2>
-          <p>
-            Corverse Talent was built on the idea that hiring should feel thoughtful, strategic, and personalized. We partner with clients
-            and candidates to understand long-term goals, company culture, and market positioning before we make an introduction.
-          </p>
+      <section style={{ marginTop: '4rem' }}>
+        <h2>What Sets Us Apart</h2>
+        <p>That's why we invest in understanding your business, culture, and long-term goals before we introduce the first candidate.</p>
+        
+        <div className="feature-grid">
+          <div className="feature-card">
+            <h3>Personalized Service</h3>
+            <p>Service from senior recruiters with sector expertise.</p>
+          </div>
+          <div className="feature-card">
+            <h3>Selective Network</h3>
+            <p>A carefully curated network of executive and technical professionals.</p>
+          </div>
+          <div className="feature-card">
+            <h3>Premium Process</h3>
+            <p>A process that perfectly balances speed, discretion, and quality.</p>
+          </div>
         </div>
-        <div>
-          <h2>What sets us apart</h2>
-          <ul>
-            <li>Senior recruiters with deep sector expertise</li>
-            <li>A selective, high-quality talent network</li>
-            <li>Speed, discretion, and exceptional fit</li>
-          </ul>
-        </div>
-      </div>
+      </section>
 
-      <div className="content-grid">
-        <div>
-          <h2>Our values</h2>
-          <ul>
-            <li><strong>Trust:</strong> We earn it through every recommendation and every placement.</li>
-            <li><strong>Alignment:</strong> We match people to roles where they can thrive.</li>
-            <li><strong>Excellence:</strong> We care about fit, not volume.</li>
-          </ul>
+      <section style={{ marginTop: '8rem' }}>
+        <span className="eyebrow">Our Values</span>
+        <div className="service-list">
+          <div className="service-card">
+            <h3>Trust</h3>
+            <p>We earn it with every recommendation and every placement.</p>
+          </div>
+          <div className="service-card">
+            <h3>Alignment</h3>
+            <p>We match people to roles where they can thrive.</p>
+          </div>
+          <div className="service-card">
+            <h3>Excellence</h3>
+            <p>Our standard is exceptional fit, not volume.</p>
+          </div>
         </div>
-        <div>
-          <h2>Leadership</h2>
-          <p>
-            Our team is made up of experienced recruiters and industry operators who understand both candidate ambition and client expectations.
-            We bring clarity, discretion, and a forward-thinking mindset to every search.
+      </section>
+
+      <section style={{ marginTop: '8rem' }}>
+        <div className="hero-panel-card" style={{ textAlign: 'center' }}>
+          <span className="eyebrow">Leadership</span>
+          <h2>Built by Seasoned Operators</h2>
+          <p style={{ margin: '0 auto 2rem', maxWidth: '800px' }}>
+            Corverse Talent was built by seasoned recruiters and industry operators who understand both candidate ambition and client expectations. Our team brings clarity, discretion, and a forward-thinking mindset to every engagement.
           </p>
+          <Link to="/services" className="button button-primary">Learn About Our Process</Link>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
-}
+};
 
 export default About;
