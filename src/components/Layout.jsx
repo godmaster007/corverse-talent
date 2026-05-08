@@ -9,10 +9,11 @@ const Layout = () => {
         <NavLink to="/" className="brand" end>Corverse Talent</NavLink>
         <nav className="site-nav">
           <NavLink to="/" end>Home</NavLink>
+          <NavLink to="/about">About Us</NavLink>
+          <NavLink to="/team">Team</NavLink>
           <NavLink to="/services">Services</NavLink>
           <NavLink to="/candidates">Candidates</NavLink>
           <NavLink to="/clients">Clients</NavLink>
-          <NavLink to="/about">About Us</NavLink>
         </nav>
         <NavLink className="cta-link" to="/contact">Work With Us</NavLink>
       </header>

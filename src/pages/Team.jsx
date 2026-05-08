@@ -1,24 +1,19 @@
 import React from 'react';
+import Hero from '../components/Hero.jsx';
 
-/**
- * Using BASE_URL ensures images load correctly on GitHub Pages subfolders and 
- * prevents the build from failing if the file is not yet committed to the repo.
- */
 const baseUrl = import.meta.env.BASE_URL || '/';
 const coreyPic = `${baseUrl.endsWith('/') ? baseUrl : baseUrl + '/'}images/corey.webp`;
 
 function Team() {
   return (
-    <section className="page page-team">
-      <div className="section-intro">
-        <p className="eyebrow">Our Team</p>
-        <h1>Meet the founders of Corverse Talent.</h1>
-        <p className="lead">
-          We bring deep industry expertise, a commitment to excellence, and a shared vision for reimagining talent acquisition.
-        </p>
-      </div>
+    <div className="page fade-in">
+      <Hero 
+        eyebrow="Our Team"
+        title="Meet the founders of Corverse Talent."
+        lead="We bring deep industry expertise, a commitment to excellence, and a shared vision for reimagining talent acquisition."
+      />
 
-      <div className="team-grid">
+      <div className="team-grid" style={{ marginTop: '4rem' }}>
         <article className="team-card">
           <div className="team-image">
             <img src={coreyPic} alt="Corey Williams" />
@@ -41,7 +36,7 @@ function Team() {
           </div>
         </article>
       </div>
-    </section>
+    </div>
   );
 }
 
