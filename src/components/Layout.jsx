@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
+import AiConcierge from './AiConcierge.jsx';
 
 const Layout = () => {
   return (
@@ -28,6 +29,8 @@ const Layout = () => {
           © {new Date().getFullYear()} Corverse Talent. All rights reserved.
         </div>
       </footer>
+      
+      <AiConcierge />
     </div>
   );
 };
