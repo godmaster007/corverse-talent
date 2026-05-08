@@ -27,12 +27,14 @@ function Team() {
         </article>
 
         <article className="team-card">
-          <div className="team-image-placeholder"></div>
+          <div className="team-image">
+            <img src={`${import.meta.env.BASE_URL || '/'}images/nick.webp`} alt="Nick Koron" />
+          </div>
           <h2>Nick Koron</h2>
           <p className="role">COO & Co-Founder</p>
           <div className="bio">
             <p>Nick Koron is the Co-Founder and Chief Operating Officer of Corverse Talent, bringing 16 years of executive leadership, advanced technical infrastructure design, and enterprise-scale data operations to the firm. As an aggressive problem solver, Nick serves as the operational powerhouse behind Corverse Talent’s "white-glove" delivery workflow. Nick architected the agency's back-end tech stack to eliminate administrative friction, ensuring the firm remains focused entirely on high-touch talent acquisition and precision matching.</p>
-            <p>Nick began his professional career in corporate finance, serving as a Credit Analyst, Underwriter, and Credit Manager for premier West Coast institutions, including the Bank of San Francisco and Wells Fargo Financial. In these roles, he conducted rigorous cash flow analyses and utilized demographic data to forecast scaling capabilities for small to mid-sized corporate entities. At Corverse Talent, Nick merges his corporate finance precision with advanced technical operations to help mid-sized AI and technology companies seamlessly scale their elite GTM teams.</p>
+            <p>This foundational business acumen is backed by a Bachelor of Science in Finance from California Polytechnic State University (San Luis Obispo), where he completed advanced coursework in financial engineering, quantitative methods, and corporate taxation. Nick began his professional career in corporate finance, serving as a Credit Analyst, Underwriter, and Credit Manager for premier West Coast institutions, including the Bank of San Francisco and Wells Fargo Financial. In these roles, he conducted rigorous cash flow analyses and utilized demographic data to forecast scaling capabilities for small to mid-sized corporate entities. At Corverse Talent, Nick merges his corporate finance precision with advanced technical operations to help mid-sized AI and technology companies seamlessly scale their elite GTM teams.</p>
           </div>
         </article>
       </div>

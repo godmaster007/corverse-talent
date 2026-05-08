@@ -8,12 +8,21 @@ const About = () => {
       <Hero 
         eyebrow="About Us"
         title="We believe the best talent is found through relationships, not algorithms."
-        lead="Corverse Talent was founded to bring a new kind of recruitment experience to specialized staffing. Our approach blends boutique care with deep market insight so our clients and candidates feel confident at every stage."
+        lead="Corverse Talent was founded to bring a new kind of recruitment experience to specialized staffing. Our approach blends boutique care with deep market insight, so our clients and candidates feel confident at every stage."
+        panelContent={
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+            <img 
+              src={`${import.meta.env.BASE_URL || '/'}images/corverse_logo.jpeg`} 
+              alt="Corverse Talent Logo" 
+              style={{ maxWidth: '80%', maxHeight: '300px', objectFit: 'contain', borderRadius: '12px' }} 
+            />
+          </div>
+        }
       />
 
       <section style={{ marginTop: '4rem' }}>
         <h2>What Sets Us Apart</h2>
-        <p>That's why we invest in understanding your business, culture, and long-term goals before we introduce the first candidate.</p>
+        <p>We invest in understanding your business, culture, and long-term goals before we introduce the first candidate.</p>
         
         <div className="feature-grid">
           <div className="feature-card">
@@ -22,7 +31,7 @@ const About = () => {
           </div>
           <div className="feature-card">
             <h3>Selective Network</h3>
-            <p>A carefully curated network of executive and technical professionals.</p>
+            <p>A carefully curated network of executive and Sales professionals.</p>
           </div>
           <div className="feature-card">
             <h3>Premium Process</h3>

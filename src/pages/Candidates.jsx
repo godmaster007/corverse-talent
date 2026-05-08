@@ -44,19 +44,18 @@ const Candidates = () => {
         <div className="hero-panel-card" style={{ marginTop: '2rem' }}>
           {!analysisResult ? (
             <form onSubmit={handleAnalyze} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <textarea 
-                rows="8" 
-                placeholder="Paste your resume text here..." 
-                value={resumeText}
-                onChange={(e) => setResumeText(e.target.value)}
+              <input 
+                type="file" 
+                accept=".pdf,.doc,.docx"
+                onChange={(e) => setResumeText(e.target.files[0] ? e.target.files[0].name : '')}
                 style={{
                   width: '100%',
-                  padding: '1rem',
+                  padding: '1.5rem',
                   borderRadius: '12px',
                   background: 'rgba(0,0,0,0.2)',
-                  border: '1px solid rgba(255,255,255,0.1)',
+                  border: '2px dashed rgba(255,255,255,0.2)',
                   color: '#fff',
-                  fontFamily: 'inherit'
+                  cursor: 'pointer'
                 }}
               />
               <button 

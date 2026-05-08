@@ -16,8 +16,12 @@ const Home = () => {
 
       <section className="brand-bar">
         <p>Trusted by ambitious teams and innovative companies.</p>
-        <div className="logos">
-          [Logo bar placeholder for partner brands, industry publications, and featured collaborations]
+        <div className="logos" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '2rem' }}>
+          <img 
+            src={`${import.meta.env.BASE_URL || '/'}images/corverse_logo.jpeg`} 
+            alt="Corverse Talent Logo" 
+            style={{ maxHeight: '80px', objectFit: 'contain', borderRadius: '8px' }} 
+          />
         </div>
       </section>
 
