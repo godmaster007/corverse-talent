@@ -15,7 +15,7 @@ const Home = () => {
         panelContent={
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
             <img 
-              src={`${import.meta.env.BASE_URL || '/'}images/corverse_logo.webp`} 
+              src={`${import.meta.env.BASE_URL || '/'}images/corverse_logo.svg`} 
               alt="Corverse Talent Logo" 
               style={{ maxWidth: '80%', maxHeight: '300px', objectFit: 'contain', borderRadius: '12px' }} 
             />
@@ -27,7 +27,7 @@ const Home = () => {
         <p>Trusted by ambitious teams and innovative companies</p>
         <div className="logos" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '2rem' }}>
           <img 
-            src={`${import.meta.env.BASE_URL || '/'}images/corverse_logo.webp`} 
+            src={`${import.meta.env.BASE_URL || '/'}images/corverse_logo.svg`} 
             alt="Corverse Talent Logo" 
             style={{ maxHeight: '80px', objectFit: 'contain', borderRadius: '8px' }} 
           />
