@@ -12,13 +12,22 @@ const Home = () => {
         lead="At Corverse Talent, we make the match that changes the course of your business. We bring boutique precision, global reach, and a modern recruitment experience to every search."
         primaryCta="Work With Us"
         primaryLink="/contact"
+        panelContent={
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+            <img 
+              src={`${import.meta.env.BASE_URL || '/'}images/corverse_logo.webp`} 
+              alt="Corverse Talent Logo" 
+              style={{ maxWidth: '80%', maxHeight: '300px', objectFit: 'contain', borderRadius: '12px' }} 
+            />
+          </div>
+        }
       />
 
       <section className="brand-bar">
-        <p>Trusted by ambitious teams and innovative companies.</p>
+        <p>Trusted by ambitious teams and innovative companies</p>
         <div className="logos" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '2rem' }}>
           <img 
-            src={`${import.meta.env.BASE_URL || '/'}images/corverse_logo.jpeg`} 
+            src={`${import.meta.env.BASE_URL || '/'}images/corverse_logo.webp`} 
             alt="Corverse Talent Logo" 
             style={{ maxHeight: '80px', objectFit: 'contain', borderRadius: '8px' }} 
           />

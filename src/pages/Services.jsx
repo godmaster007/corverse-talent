@@ -34,12 +34,12 @@ const Services = () => {
         />
 
         <ServiceCard 
-          title="Specialized Technical Roles"
-          description="Hire the talent that moves technical initiatives forward—from engineering leaders to niche experts in AI, cloud, data, and product."
+          title="Hard-to-Find Positions"
+          description="We specialize in placing elite, hard-to-find sales and go-to-market leadership. From the C-suite to the front lines, we find the exact talent needed to drive revenue."
           features={[
-            "Targeted searches in high-demand technical disciplines",
-            "Candidates with proven domain experience and cultural fit",
-            "Rapid access to a curated talent pool"
+            "Chief Revenue Officers (CROs) & VP of Sales",
+            "Sales Directors & Regional Management",
+            "Senior Account Executives & Strategic Sellers"
           ]}
         />
 

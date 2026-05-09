@@ -12,7 +12,7 @@ const About = () => {
         panelContent={
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
             <img 
-              src={`${import.meta.env.BASE_URL || '/'}images/corverse_logo.jpeg`} 
+              src={`${import.meta.env.BASE_URL || '/'}images/corverse_logo.webp`} 
               alt="Corverse Talent Logo" 
               style={{ maxWidth: '80%', maxHeight: '300px', objectFit: 'contain', borderRadius: '12px' }} 
             />
@@ -31,7 +31,7 @@ const About = () => {
           </div>
           <div className="feature-card">
             <h3>Selective Network</h3>
-            <p>A carefully curated network of executive and Sales professionals.</p>
+            <p>A carefully curated network of executive and sales professionals.</p>
           </div>
           <div className="feature-card">
             <h3>Premium Process</h3>

@@ -32,6 +32,10 @@ const Clients = () => {
             <h3>Delivery</h3>
             <p>We present a refined shortlist and support you through decisions and offers.</p>
           </div>
+          <div className="feature-card">
+            <h3>Contact Us</h3>
+            <p>Ready to start a search? Reach out to us directly at <a href="mailto:hello@corversetalent.com" style={{ color: 'var(--accent)', textDecoration: 'underline' }}>hello@corversetalent.com</a> or use our contact form.</p>
+          </div>
         </div>
       </section>
 
