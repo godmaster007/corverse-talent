@@ -8,6 +8,7 @@ const Contact = () => {
         eyebrow="Contact / Inquiry"
         title="Let's Get Started"
         lead="Tell us whether you're hiring or exploring new opportunities. We'll respond with a tailored next step."
+        alignTop={true}
         panelContent={
           <form className="inquiry-form" onSubmit={(e) => e.preventDefault()}>
             <label>
@@ -36,7 +37,15 @@ const Contact = () => {
             <button type="submit" className="button button-primary" style={{ marginTop: '1rem' }}>Send Inquiry</button>
           </form>
         }
-      />
+      >
+        <div style={{ marginTop: '3rem' }}>
+          <img 
+            src={`${import.meta.env.BASE_URL || '/'}images/corverse_logo.svg`} 
+            alt="Corverse Talent Logo" 
+            style={{ maxWidth: '200px', objectFit: 'contain' }} 
+          />
+        </div>
+      </Hero>
       
       <section style={{ marginTop: '4rem', textAlign: 'center' }}>
         <span className="eyebrow">What Happens Next</span>

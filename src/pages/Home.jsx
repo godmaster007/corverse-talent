@@ -17,7 +17,7 @@ const Home = () => {
             <img 
               src={`${import.meta.env.BASE_URL || '/'}images/corverse_logo.svg`} 
               alt="Corverse Talent Logo" 
-              style={{ maxWidth: '80%', maxHeight: '300px', objectFit: 'contain', borderRadius: '12px' }} 
+              style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '12px' }} 
             />
           </div>
         }

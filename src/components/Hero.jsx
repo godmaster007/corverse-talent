@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Hero = ({ eyebrow, title, lead, primaryCta, primaryLink, secondaryCta, secondaryLink, panelContent }) => {
+const Hero = ({ eyebrow, title, lead, primaryCta, primaryLink, secondaryCta, secondaryLink, panelContent, alignTop, children }) => {
   return (
-    <section className="hero-section">
+    <section className="hero-section" style={alignTop ? { alignItems: 'flex-start' } : {}}>
       <div className="hero-copy">
         {eyebrow && <span className="eyebrow">{eyebrow}</span>}
         <h1>{title}</h1>
@@ -21,6 +21,7 @@ const Hero = ({ eyebrow, title, lead, primaryCta, primaryLink, secondaryCta, sec
             </Link>
           )}
         </div>
+        {children}
       </div>
       
       {panelContent && (
