@@ -38,11 +38,11 @@ const Contact = () => {
           </form>
         }
       >
-        <div style={{ marginTop: '3rem' }}>
+        <div style={{ marginTop: '3rem', width: '100%', display: 'flex', justifyContent: 'center' }}>
           <img 
             src={`${import.meta.env.BASE_URL || '/'}images/corverse_logo.svg`} 
             alt="Corverse Talent Logo" 
-            style={{ maxWidth: '200px', objectFit: 'contain' }} 
+            style={{ width: '100%', maxHeight: '350px', objectFit: 'contain', borderRadius: '12px' }} 
           />
         </div>
       </Hero>
