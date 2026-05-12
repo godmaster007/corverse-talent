@@ -28,8 +28,8 @@ const Home = () => {
 
       <section style={{ marginTop: '6rem' }}>
         <span className="eyebrow">Why Corverse Talent</span>
-        <h2>High-end staffing for ambitious organizations.</h2>
-        <p>We are the high-end staffing partner for ambitious organizations and ambitious professionals. Our process is personal, our network is deeply rooted in specialized markets, and our focus is always on quality rather than volume.</p>
+        <h2>High-end staffing for ambitious GTM organizations.</h2>
+        <p>We are the high-end staffing partner for ambitious organizations and exclusive, top sales talent. Our process is personal, our network is deeply rooted in specialized markets, and our focus is always on quality rather than volume.</p>
         
         <div className="feature-grid">
           <div className="feature-card">
@@ -52,7 +52,7 @@ const Home = () => {
           <div className="service-card">
             <span className="eyebrow">For Clients</span>
             <h2>Find Talent</h2>
-            <p>Connect with senior leaders, engineering experts, and specialized talent who shape the future of your business.</p>
+            <p>Connect with senior leaders, sales experts, and specialized talent who shape the future of your business.</p>
             <ul>
               <li>Executive Search for market-moving hires</li>
               <li>Permanent Placement for strategic growth teams</li>
