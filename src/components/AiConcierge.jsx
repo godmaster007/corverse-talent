@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { generateChatResponse } from '../lib/gemini.js';
 
-const mockResponses = [
-  "Hello! I'm the Corverse AI Concierge. Are you looking to hire top talent or find your next executive role?",
-  "That sounds like an exciting direction. We specialize in executive search and specialized technical roles. Would you like me to connect you with one of our senior recruiters?",
-  "I've noted your interest. A specialist will review this and reach out shortly. In the meantime, feel free to explore our Services page for more details on our process."
-];
+const initialGreeting = "Hello! I'm the Corverse AI Concierge. Are you looking to hire top talent or find your next executive role?";
 
 const AiConcierge = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([{ sender: 'ai', text: mockResponses[0] }]);
+  const [messages, setMessages] = useState([{ sender: 'ai', text: initialGreeting }]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
@@ -21,22 +18,22 @@ const AiConcierge = () => {
     scrollToBottom();
   }, [messages, isTyping, isOpen]);
 
-  const handleSend = (e) => {
+  const handleSend = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
     
     // Add user message
     const userMessage = input.trim();
+    const currentHistory = [...messages];
     setMessages(prev => [...prev, { sender: 'user', text: userMessage }]);
     setInput('');
     setIsTyping(true);
     
-    // Mock AI delay and response
-    setTimeout(() => {
-      const nextResponseIndex = Math.min(messages.length, mockResponses.length - 1);
-      setMessages(prev => [...prev, { sender: 'ai', text: mockResponses[nextResponseIndex] || mockResponses[2] }]);
-      setIsTyping(false);
-    }, 1500);
+    // Call Gemini API (pass the history without the new message since we pass it separately)
+    const responseText = await generateChatResponse(currentHistory, userMessage);
+    
+    setMessages(prev => [...prev, { sender: 'ai', text: responseText }]);
+    setIsTyping(false);
   };
 
   return (

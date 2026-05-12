@@ -1,29 +1,45 @@
 import React, { useState } from 'react';
 import Hero from '../components/Hero.jsx';
 import { Link } from 'react-router-dom';
+import { analyzeResume } from '../lib/gemini.js';
 
 const Candidates = () => {
-  const [resumeText, setResumeText] = useState('');
+  const [resumeFile, setResumeFile] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
 
-  const handleAnalyze = (e) => {
+  const handleAnalyze = async (e) => {
     e.preventDefault();
-    if (!resumeText.trim()) return;
+    if (!resumeFile) return;
 
     setIsAnalyzing(true);
     setAnalysisResult(null);
 
-    // Mock API delay for AI analysis
-    setTimeout(() => {
+    try {
+      // Convert file to base64
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64Data = reader.result.split(',')[1];
+        
+        try {
+          const result = await analyzeResume(base64Data, resumeFile.type || 'application/pdf');
+          setAnalysisResult(result);
+        } catch (error) {
+          console.error(error);
+          setAnalysisResult({
+            score: 0,
+            message: "Sorry, we encountered an error analyzing your resume. Please try again.",
+            strengths: [],
+            recommendations: []
+          });
+        } finally {
+          setIsAnalyzing(false);
+        }
+      };
+      reader.readAsDataURL(resumeFile);
+    } catch (error) {
       setIsAnalyzing(false);
-      setAnalysisResult({
-        score: 85,
-        strengths: ["Strong leadership background", "Relevant industry keywords detected", "Clear progression"],
-        recommendations: ["Highlight specific revenue impacts", "Expand on your technical stack for CTO roles"],
-        message: "Your profile aligns well with our current executive search mandates. We recommend submitting your full portfolio to our team."
-      });
-    }, 2500);
+    }
   };
 
   return (
@@ -46,8 +62,8 @@ const Candidates = () => {
             <form onSubmit={handleAnalyze} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <input 
                 type="file" 
-                accept=".pdf,.doc,.docx"
-                onChange={(e) => setResumeText(e.target.files[0] ? e.target.files[0].name : '')}
+                accept=".pdf,.txt"
+                onChange={(e) => setResumeFile(e.target.files[0] || null)}
                 style={{
                   width: '100%',
                   padding: '1.5rem',
@@ -61,7 +77,7 @@ const Candidates = () => {
               <button 
                 type="submit" 
                 className="button button-primary" 
-                disabled={isAnalyzing || !resumeText.trim()}
+                disabled={isAnalyzing || !resumeFile}
                 style={{ alignSelf: 'flex-start' }}
               >
                 {isAnalyzing ? 'Analyzing Profile...' : 'Analyze My Resume ✨'}
@@ -91,7 +107,7 @@ const Candidates = () => {
                 <Link to="/contact" className="button button-primary">Connect with a Recruiter</Link>
                 <button 
                   className="button button-secondary"
-                  onClick={() => { setAnalysisResult(null); setResumeText(''); }}
+                  onClick={() => { setAnalysisResult(null); setResumeFile(null); }}
                 >
                   Analyze Another
                 </button>
