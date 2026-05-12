@@ -18,10 +18,19 @@ export async function generateChatResponse(history, newMessage) {
 
     // Format history for Gemini API. We filter out any previous error messages if needed,
     // and map our sender ('user'/'ai') to Gemini's role ('user'/'model').
-    const formattedHistory = history.map(msg => ({
+    let formattedHistory = history.map(msg => ({
       role: msg.sender === 'user' ? 'user' : 'model',
       parts: [{ text: msg.text }]
     }));
+
+    // Gemini API STRICTLY requires the history to start with a 'user' message.
+    // Since our chat starts with an AI greeting, we must prepend a dummy user message.
+    if (formattedHistory.length > 0 && formattedHistory[0].role === 'model') {
+      formattedHistory = [
+        { role: 'user', parts: [{ text: "Hello" }] },
+        ...formattedHistory
+      ];
+    }
 
     const chat = model.startChat({
       history: formattedHistory,
