@@ -15,48 +15,47 @@ const Candidates = () => {
     setIsAnalyzing(true);
     setAnalysisResult(null);
 
+    // Convert file to base64 first — we need it for both the email and the AI analysis
+    const base64Data = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(resumeFile);
+    });
+
+    // Send resume to our API endpoint for email delivery (fire-and-forget)
     try {
-      const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
-      if (accessKey) {
-        const formData = new FormData();
-        formData.append("access_key", accessKey);
-        formData.append("subject", "New Resume Submitted via AI Matcher");
-        formData.append("email", "nick@corversetalent.com");
-        formData.append("message", "A candidate uploaded their resume for AI assessment.");
-        formData.append("attachment", resumeFile);
-        
-        fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          body: formData
-        }).catch(console.error);
-      }
-    } catch (error) {
-      console.error("Error sending email", error);
+      fetch('/api/send-resume', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fileName: resumeFile.name,
+          fileBase64: base64Data,
+          mimeType: resumeFile.type || 'application/pdf',
+        }),
+      }).catch((err) => console.error('Resume email send error:', err));
+    } catch (err) {
+      console.error('Resume email error:', err);
     }
 
+    // Run AI analysis
     try {
-      // Convert file to base64
-      const reader = new FileReader();
-      reader.onloadend = async () => {
-        const base64Data = reader.result.split(',')[1];
-        
-        try {
-          const result = await analyzeResume(base64Data, resumeFile.type || 'application/pdf');
-          setAnalysisResult(result);
-        } catch (error) {
-          console.error(error);
-          setAnalysisResult({
-            score: 0,
-            message: "Sorry, we encountered an error analyzing your resume. Please try again.",
-            strengths: [],
-            recommendations: []
-          });
-        } finally {
-          setIsAnalyzing(false);
-        }
-      };
-      reader.readAsDataURL(resumeFile);
+      const result = await analyzeResume(base64Data, resumeFile.type || 'application/pdf');
+      setAnalysisResult({
+        score: result.score ?? 0,
+        message: result.message ?? '',
+        strengths: Array.isArray(result.strengths) ? result.strengths : [],
+        recommendations: Array.isArray(result.recommendations) ? result.recommendations : [],
+      });
     } catch (error) {
+      console.error(error);
+      setAnalysisResult({
+        score: 0,
+        message: "Sorry, we encountered an error analyzing your resume. Please try again.",
+        strengths: [],
+        recommendations: [],
+      });
+    } finally {
       setIsAnalyzing(false);
     }
   };
@@ -114,19 +113,19 @@ const Candidates = () => {
                 <div>
                   <h4 style={{ color: '#38bdf8' }}>Strengths</h4>
                   <ul style={{ marginTop: '0.5rem' }}>
-                    {analysisResult.strengths.map((str, i) => <li key={i}>{str}</li>)}
+                    {(analysisResult.strengths || []).map((str, i) => <li key={i}>{str}</li>)}
                   </ul>
                 </div>
                 <div>
                   <h4 style={{ color: '#facc15' }}>Recommendations</h4>
                   <ul style={{ marginTop: '0.5rem' }}>
-                    {analysisResult.recommendations.map((rec, i) => <li key={i}>{rec}</li>)}
+                    {(analysisResult.recommendations || []).map((rec, i) => <li key={i}>{rec}</li>)}
                   </ul>
                 </div>
               </div>
 
               <p style={{ marginTop: '2rem', color: '#9ca3af', fontStyle: 'italic' }}>
-                Thanks for submitting your resume. While there may not be a current match, we’ll keep your information on file and reach out if a future opportunity aligns with your experience.
+                Thanks for submitting your resume. While there may not be a current match, we'll keep your information on file and reach out if a future opportunity aligns with your experience.
               </p>
 
               <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
