@@ -23,17 +23,41 @@ const Candidates = () => {
       reader.readAsDataURL(resumeFile);
     });
 
-    // Send resume to our API endpoint for email delivery (fire-and-forget)
+    // Send resume notification via Web3Forms (fire-and-forget)
     try {
-      fetch('/api/send-resume', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fileName: resumeFile.name,
-          fileBase64: base64Data,
-          mimeType: resumeFile.type || 'application/pdf',
-        }),
-      }).catch((err) => console.error('Resume email send error:', err));
+      const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
+      if (accessKey) {
+        // Send via multipart/form-data with the file attached
+        const emailForm = new FormData();
+        emailForm.append('access_key', accessKey);
+        emailForm.append('subject', `New Resume Submitted via AI Matcher: ${resumeFile.name}`);
+        emailForm.append('from_name', 'Corverse Talent AI Matcher');
+        emailForm.append('message', `A candidate uploaded their resume (${resumeFile.name}) for AI assessment via the Corverse Talent website.`);
+        emailForm.append('attachment', resumeFile);
+
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: emailForm,
+        })
+          .then((r) => r.json())
+          .then((result) => {
+            if (!result.success) {
+              console.warn('Web3Forms attachment failed, sending notification only:', result);
+              // Fallback: send just the notification without attachment
+              fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify({
+                  access_key: accessKey,
+                  subject: `New Resume Submitted via AI Matcher: ${resumeFile.name}`,
+                  from_name: 'Corverse Talent AI Matcher',
+                  message: `A candidate uploaded their resume for AI assessment on the Corverse Talent website.\n\nFilename: ${resumeFile.name}\nFile Type: ${resumeFile.type || 'unknown'}\nFile Size: ${(resumeFile.size / 1024).toFixed(1)} KB\n\nPlease follow up with this candidate.`,
+                }),
+              }).catch(console.error);
+            }
+          })
+          .catch(console.error);
+      }
     } catch (err) {
       console.error('Resume email error:', err);
     }
