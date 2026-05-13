@@ -16,6 +16,25 @@ const Candidates = () => {
     setAnalysisResult(null);
 
     try {
+      const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
+      if (accessKey) {
+        const formData = new FormData();
+        formData.append("access_key", accessKey);
+        formData.append("subject", "New Resume Submitted via AI Matcher");
+        formData.append("email", "nick@corversetalent.com");
+        formData.append("message", "A candidate uploaded their resume for AI assessment.");
+        formData.append("attachment", resumeFile);
+        
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        }).catch(console.error);
+      }
+    } catch (error) {
+      console.error("Error sending email", error);
+    }
+
+    try {
       // Convert file to base64
       const reader = new FileReader();
       reader.onloadend = async () => {
@@ -55,7 +74,7 @@ const Candidates = () => {
       <section style={{ marginTop: '6rem' }}>
         <span className="eyebrow">Instant Feedback</span>
         <h2>AI Resume Matcher</h2>
-        <p>Curious if your profile fits our current technical or executive roles? Paste your resume text below for an instant AI assessment before officially applying.</p>
+        <p>Curious if your profile fits our current technical or executive roles? Upload your resume for an instant AI match assessment against our open roles.</p>
         
         <div className="hero-panel-card" style={{ marginTop: '2rem' }}>
           {!analysisResult ? (
@@ -82,6 +101,9 @@ const Candidates = () => {
               >
                 {isAnalyzing ? 'Analyzing Profile...' : 'Analyze My Resume ✨'}
               </button>
+              <p style={{ fontSize: '0.75rem', color: '#9ca3af', marginTop: '0.5rem' }}>
+                By uploading your resume for an AI match assessment, you agree to have your information submitted to our recruiting team and stored in our ATS for consideration for current and future opportunities.
+              </p>
             </form>
           ) : (
             <div className="fade-in">
@@ -102,6 +124,10 @@ const Candidates = () => {
                   </ul>
                 </div>
               </div>
+
+              <p style={{ marginTop: '2rem', color: '#9ca3af', fontStyle: 'italic' }}>
+                Thanks for submitting your resume. While there may not be a current match, we’ll keep your information on file and reach out if a future opportunity aligns with your experience.
+              </p>
 
               <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
                 <Link to="/contact" className="button button-primary">Connect with a Recruiter</Link>
