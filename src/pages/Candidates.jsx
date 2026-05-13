@@ -1,32 +1,99 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Hero from '../components/Hero.jsx';
 import { Link } from 'react-router-dom';
 import { analyzeResume } from '../lib/gemini.js';
 
 const Candidates = () => {
   const [resumeFile, setResumeFile] = useState(null);
+  const [fileReady, setFileReady] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
+  const base64Ref = useRef(null);
+
+  // Pre-load the file into memory as soon as it's selected
+  const handleFileChange = (e) => {
+    const file = e.target.files[0] || null;
+    setResumeFile(file);
+    setFileReady(false);
+    base64Ref.current = null;
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        base64Ref.current = reader.result.split(',')[1];
+        setFileReady(true);
+      };
+      reader.onerror = () => {
+        console.error('Failed to read file');
+        setFileReady(false);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleAnalyze = async (e) => {
     e.preventDefault();
-    if (!resumeFile) return;
+    if (!resumeFile || !fileReady || !base64Ref.current) return;
 
     setIsAnalyzing(true);
     setAnalysisResult(null);
 
-    // Convert file to base64 first — we need it for both the email and the AI analysis
-    const base64Data = await new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result.split(',')[1]);
-      reader.onerror = reject;
-      reader.readAsDataURL(resumeFile);
-    });
+    const base64Data = base64Ref.current;
+    const fileName = resumeFile.name;
+    const fileType = resumeFile.type || 'application/pdf';
+    const fileSize = (resumeFile.size / 1024).toFixed(1);
 
-    // Send resume notification via Web3Forms (same pattern as Contact form)
+    // Run AI analysis
+    let result;
+    try {
+      result = await analyzeResume(base64Data, fileType);
+    } catch (error) {
+      console.error(error);
+      result = {
+        score: 0,
+        message: "Sorry, we encountered an error analyzing your resume. Please try again.",
+        strengths: [],
+        recommendations: [],
+        resumeText: '',
+      };
+    }
+
+    const normalizedResult = {
+      score: result.score ?? 0,
+      message: result.message ?? '',
+      strengths: Array.isArray(result.strengths) ? result.strengths : [],
+      recommendations: Array.isArray(result.recommendations) ? result.recommendations : [],
+    };
+    setAnalysisResult(normalizedResult);
+    setIsAnalyzing(false);
+
+    // Send email with analysis results + resume text AFTER analysis completes
     try {
       const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
       if (accessKey) {
+        const resumeText = result.resumeText || '(Could not extract text from resume)';
+        const emailBody = [
+          `A candidate uploaded their resume for AI assessment on the Corverse Talent website.`,
+          ``,
+          `=== FILE DETAILS ===`,
+          `Filename: ${fileName}`,
+          `File Type: ${fileType}`,
+          `File Size: ${fileSize} KB`,
+          ``,
+          `=== AI ANALYSIS RESULTS ===`,
+          `Alignment Score: ${normalizedResult.score}%`,
+          `Assessment: ${normalizedResult.message}`,
+          ``,
+          `Strengths:`,
+          ...normalizedResult.strengths.map((s, i) => `  ${i + 1}. ${s}`),
+          ``,
+          `Recommendations:`,
+          ...normalizedResult.recommendations.map((r, i) => `  ${i + 1}. ${r}`),
+          ``,
+          `=== FULL RESUME TEXT ===`,
+          resumeText,
+        ].join('\n');
+
         fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: {
@@ -35,45 +102,24 @@ const Candidates = () => {
           },
           body: JSON.stringify({
             access_key: accessKey,
-            subject: `New Resume Submitted via AI Matcher: ${resumeFile.name}`,
+            subject: `New Resume Submitted via AI Matcher: ${fileName} (${normalizedResult.score}% Match)`,
             from_name: 'Corverse Talent AI Matcher',
             name: 'AI Resume Matcher Submission',
-            message: `A candidate uploaded their resume for AI assessment on the Corverse Talent website.\n\nFilename: ${resumeFile.name}\nFile Type: ${resumeFile.type || 'unknown'}\nFile Size: ${(resumeFile.size / 1024).toFixed(1)} KB\n\nPlease follow up with this candidate.`,
+            message: emailBody,
           }),
         })
           .then((r) => r.json())
-          .then((result) => {
-            if (result.success) {
+          .then((res) => {
+            if (res.success) {
               console.log('Resume notification sent successfully');
             } else {
-              console.error('Web3Forms error:', result);
+              console.error('Web3Forms error:', res);
             }
           })
           .catch((err) => console.error('Resume email send error:', err));
       }
     } catch (err) {
       console.error('Resume email error:', err);
-    }
-
-    // Run AI analysis
-    try {
-      const result = await analyzeResume(base64Data, resumeFile.type || 'application/pdf');
-      setAnalysisResult({
-        score: result.score ?? 0,
-        message: result.message ?? '',
-        strengths: Array.isArray(result.strengths) ? result.strengths : [],
-        recommendations: Array.isArray(result.recommendations) ? result.recommendations : [],
-      });
-    } catch (error) {
-      console.error(error);
-      setAnalysisResult({
-        score: 0,
-        message: "Sorry, we encountered an error analyzing your resume. Please try again.",
-        strengths: [],
-        recommendations: [],
-      });
-    } finally {
-      setIsAnalyzing(false);
     }
   };
 
@@ -98,7 +144,7 @@ const Candidates = () => {
               <input 
                 type="file" 
                 accept=".pdf,.txt"
-                onChange={(e) => setResumeFile(e.target.files[0] || null)}
+                onChange={handleFileChange}
                 style={{
                   width: '100%',
                   padding: '1.5rem',
@@ -109,10 +155,13 @@ const Candidates = () => {
                   cursor: 'pointer'
                 }}
               />
+              {resumeFile && !fileReady && (
+                <p style={{ fontSize: '0.875rem', color: '#facc15' }}>Loading file...</p>
+              )}
               <button 
                 type="submit" 
                 className="button button-primary" 
-                disabled={isAnalyzing || !resumeFile}
+                disabled={isAnalyzing || !fileReady}
                 style={{ alignSelf: 'flex-start' }}
               >
                 {isAnalyzing ? 'Analyzing Profile...' : 'Analyze My Resume ✨'}
@@ -149,7 +198,7 @@ const Candidates = () => {
                 <Link to="/contact" className="button button-primary">Connect with a Recruiter</Link>
                 <button 
                   className="button button-secondary"
-                  onClick={() => { setAnalysisResult(null); setResumeFile(null); }}
+                  onClick={() => { setAnalysisResult(null); setResumeFile(null); setFileReady(false); base64Ref.current = null; }}
                 >
                   Analyze Another
                 </button>

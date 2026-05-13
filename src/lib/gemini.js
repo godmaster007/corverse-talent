@@ -61,7 +61,8 @@ Respond ONLY with a valid JSON object matching this exact structure, with no mar
   "score": <number between 1 and 100 representing overall alignment/strength>,
   "message": "<A brief 1-2 sentence professional assessment of the profile>",
   "strengths": ["<strength 1>", "<strength 2>", "<strength 3>"],
-  "recommendations": ["<recommendation 1>", "<recommendation 2>"]
+  "recommendations": ["<recommendation 1>", "<recommendation 2>"],
+  "resumeText": "<The FULL plain-text content of the resume, preserving all details, names, contact info, experience, education, and skills. Do not summarize — extract the complete text.>"
 }`;
 
     const result = await model.generateContent([
