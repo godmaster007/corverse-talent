@@ -111,7 +111,7 @@ const Contact = () => {
         </div>
       </Hero>
       
-      <section style={{ marginTop: '4rem', textAlign: 'center' }}>
+      <section style={{ marginTop: '3rem', textAlign: 'center' }}>
         <span className="eyebrow">What Happens Next</span>
         <p style={{ margin: '0 auto', maxWidth: '600px' }}>
           Once we receive your inquiry, a Corverse Talent specialist will reach out to learn more and recommend the best path forward.

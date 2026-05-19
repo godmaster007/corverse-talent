@@ -133,7 +133,7 @@ const Candidates = () => {
         primaryLink="/contact"
       />
 
-      <section style={{ marginTop: '6rem' }}>
+      <section style={{ marginTop: '4rem' }}>
         <span className="eyebrow">Instant Feedback</span>
         <h2>AI Resume Matcher</h2>
         <p>Curious if your profile fits our current technical or executive roles? Upload your resume for an instant AI match assessment against our open roles.</p>
@@ -208,7 +208,7 @@ const Candidates = () => {
         </div>
       </section>
 
-      <section style={{ marginTop: '8rem' }}>
+      <section style={{ marginTop: '5rem' }}>
         <span className="eyebrow">The Process</span>
         <h2>How It Works</h2>
         

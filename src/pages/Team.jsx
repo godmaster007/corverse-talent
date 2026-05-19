@@ -13,7 +13,7 @@ function Team() {
         lead="We bring deep industry expertise, a commitment to excellence, and a shared vision for reimagining talent acquisition."
       />
 
-      <div className="team-grid" style={{ marginTop: '4rem' }}>
+      <div className="team-grid" style={{ marginTop: '3rem' }}>
         <article className="team-card">
           <div className="team-image">
             <img src={coreyPic} alt="Corey Williams" />

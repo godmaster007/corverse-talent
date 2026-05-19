@@ -12,7 +12,7 @@ const Services = () => {
         lead="We offer specialized staffing solutions designed to meet the exact needs of ambitious organizations."
       />
 
-      <section className="content-grid" style={{ marginTop: '4rem' }}>
+      <section className="content-grid" style={{ marginTop: '3rem' }}>
         <ServiceCard 
           title="Executive Search"
           description="For leadership hires that define company direction and culture. We identify board-level executives, senior managers, and chief officers who bring influence, vision, and the right strategic fit."
@@ -54,7 +54,7 @@ const Services = () => {
         />
       </section>
 
-      <section style={{ marginTop: '8rem', textAlign: 'center' }}>
+      <section style={{ marginTop: '5rem', textAlign: 'center' }}>
         <div className="hero-panel-card">
           <h2>Ready to transform your team?</h2>
           <p style={{ margin: '0 auto 2rem', maxWidth: '600px' }}>

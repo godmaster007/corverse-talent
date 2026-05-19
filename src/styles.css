@@ -181,7 +181,7 @@ main {
 }
 
 .page {
-  padding: 6rem 5%;
+  padding: 3rem 5% 6rem;
   max-width: 1400px;
   margin: 0 auto;
   animation: fadeIn 0.8s ease-out forwards;
@@ -196,9 +196,9 @@ main {
 .hero-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: 2.5rem;
   align-items: center;
-  min-height: 70vh;
+  min-height: auto;
 }
 
 .hero-copy {
@@ -262,7 +262,7 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 .feature-card, .service-card {
@@ -305,7 +305,7 @@ li {
 
 /* Brand Bar */
 .brand-bar {
-  margin-top: 6rem;
+  margin-top: 4rem;
   padding: 4rem 2rem;
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);

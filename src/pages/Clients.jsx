@@ -13,7 +13,7 @@ const Clients = () => {
         primaryLink="/contact"
       />
 
-      <section style={{ marginTop: '6rem' }}>
+      <section style={{ marginTop: '4rem' }}>
         <span className="eyebrow">Our Methodology</span>
         <div className="feature-grid">
           <div className="feature-card">
@@ -39,7 +39,7 @@ const Clients = () => {
         </div>
       </section>
 
-      <section style={{ marginTop: '8rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem' }} className="hero-section">
+      <section style={{ marginTop: '5rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem' }} className="hero-section">
         <div>
           <h2>Why Work With Us</h2>
           <ul>

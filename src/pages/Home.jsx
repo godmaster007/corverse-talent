@@ -26,7 +26,7 @@ const Home = () => {
 
 
 
-      <section style={{ marginTop: '6rem' }}>
+      <section style={{ marginTop: '4rem' }}>
         <span className="eyebrow">Why Corverse Talent</span>
         <h2>High-end staffing for ambitious GTM organizations.</h2>
         <p>We are the high-end staffing partner for ambitious organizations and exclusive, top sales talent. Our process is personal, our network is deeply rooted in specialized markets, and our focus is always on quality rather than volume.</p>
@@ -47,7 +47,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section style={{ marginTop: '8rem' }}>
+      <section style={{ marginTop: '5rem' }}>
         <div className="content-grid">
           <div className="service-card">
             <span className="eyebrow">For Clients</span>
@@ -79,7 +79,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section style={{ marginTop: '8rem', textAlign: 'center' }}>
+      <section style={{ marginTop: '5rem', textAlign: 'center' }}>
         <span className="eyebrow">Our Promise</span>
         <h2>We don't just fill seats. We build the foundations of great companies.</h2>
         <div className="hero-actions" style={{ justifyContent: 'center', marginTop: '2rem' }}>

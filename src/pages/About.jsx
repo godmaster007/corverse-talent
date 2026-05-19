@@ -20,7 +20,7 @@ const About = () => {
         }
       />
 
-      <section style={{ marginTop: '4rem' }}>
+      <section style={{ marginTop: '3rem' }}>
         <h2>What Sets Us Apart</h2>
         <p>We invest in understanding your business, culture, and long-term goals before we introduce the first candidate.</p>
         
@@ -40,7 +40,7 @@ const About = () => {
         </div>
       </section>
 
-      <section style={{ marginTop: '8rem' }}>
+      <section style={{ marginTop: '5rem' }}>
         <span className="eyebrow">Our Values</span>
         <div className="service-list">
           <div className="service-card">
@@ -58,7 +58,7 @@ const About = () => {
         </div>
       </section>
 
-      <section style={{ marginTop: '8rem' }}>
+      <section style={{ marginTop: '5rem' }}>
         <div className="hero-panel-card" style={{ textAlign: 'center' }}>
           <span className="eyebrow">Leadership</span>
           <h2>Built by Seasoned Operators</h2>
