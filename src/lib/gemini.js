@@ -35,7 +35,7 @@ export async function generateChatResponse(history, newMessage) {
     const chat = model.startChat({
       history: formattedHistory,
       generationConfig: {
-        maxOutputTokens: 250,
+        maxOutputTokens: 1000,
       },
     });
 
