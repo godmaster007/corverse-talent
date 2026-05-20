@@ -12,7 +12,7 @@ export async function generateChatResponse(history, newMessage) {
 
   try {
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-2.5-flash",
+      model: "gemini-3.5-flash",
       systemInstruction: "You are the Corverse Talent AI Concierge, a high-end executive recruiter for a boutique recruiting agency called Corverse Talent. Be brief, professional, and helpful. Guide users to our services (Executive Search, Technical Recruiting) or ask if they want to speak with a human recruiter. Keep responses concise (1-3 sentences maximum)."
     });
 
@@ -53,7 +53,7 @@ export async function analyzeResume(base64Data, mimeType) {
   }
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash" });
 
     const prompt = `Analyze this resume for an executive or senior technical role. 
 Respond ONLY with a valid JSON object matching this exact structure, with no markdown formatting or backticks:
