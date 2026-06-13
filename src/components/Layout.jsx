@@ -13,6 +13,7 @@ const Layout = () => {
           <NavLink to="/team">Team</NavLink>
           <NavLink to="/services">Services</NavLink>
           <NavLink to="/candidates">Candidates</NavLink>
+          <NavLink to="/careers">Careers</NavLink>
           <NavLink to="/clients">Clients</NavLink>
         </nav>
         <NavLink className="cta-link" to="/contact">Work With Us</NavLink>
