@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 // =========================================================================
 // CORVERSE CAREERS - JOB DATABASE
@@ -101,6 +101,7 @@ const Careers = () => {
   const [selectedDept, setSelectedDept] = useState("All Departments");
   const [selectedJob, setSelectedJob] = useState(null);
   const [showApplyForm, setShowApplyForm] = useState(false);
+  const detailsRef = useRef(null);
   
   // Apply Form State
   const [formData, setFormData] = useState({
@@ -120,32 +121,46 @@ const Careers = () => {
     : JOB_DATABASE.filter(job => job.department === selectedDept);
 
   const handleOpenDetails = (job) => {
-    setSelectedJob(job);
-    setShowApplyForm(false);
-    setSubmitted(false);
-    setFormData({
-      fullName: '',
-      email: '',
-      phone: '',
-      resume: null,
-      resumeName: '',
-      coverLetter: ''
-    });
+    if (selectedJob && selectedJob.id === job.id && !showApplyForm) {
+      setSelectedJob(null);
+    } else {
+      setSelectedJob(job);
+      setShowApplyForm(false);
+      setSubmitted(false);
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        resume: null,
+        resumeName: '',
+        coverLetter: ''
+      });
+      setTimeout(() => {
+        detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
   };
 
   const handleOpenApply = (job, e) => {
     e.stopPropagation(); // Avoid triggering open details if clicked on parent
-    setSelectedJob(job);
-    setShowApplyForm(true);
-    setSubmitted(false);
-    setFormData({
-      fullName: '',
-      email: '',
-      phone: '',
-      resume: null,
-      resumeName: '',
-      coverLetter: ''
-    });
+    if (selectedJob && selectedJob.id === job.id && showApplyForm) {
+      setSelectedJob(null);
+    } else {
+      setSelectedJob(job);
+      setShowApplyForm(true);
+      setSubmitted(false);
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        resume: null,
+        resumeName: '',
+        coverLetter: ''
+      });
+      setTimeout(() => {
+        detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -241,37 +256,243 @@ const Careers = () => {
         <div className="job-listings-grid">
           {filteredJobs.length > 0 ? (
             filteredJobs.map(job => (
-              <div key={job.id} className="job-card">
-                <div className="job-card-header">
-                  <span className="job-dept-tag">{job.department}</span>
-                  <div className="job-meta">
-                    <span className="job-location">
-                      <svg width="12" height="14" viewBox="0 0 12 14" fill="none" className="meta-icon" aria-hidden="true">
-                        <path d="M6 7.66667C6.92047 7.66667 7.66667 6.92047 7.66667 6C7.66667 5.07953 6.92047 4.33333 6 4.33333C5.07953 4.33333 4.33333 5.07953 4.33333 6C4.33333 6.92047 5.07953 7.66667 6 7.66667Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M6 12.6667C8.66667 10.6667 11 8.24 11 6C11 3.23857 8.76142 1 6 1C3.23858 1 1 3.23857 1 6C1 8.24 3.33333 10.6667 6 12.6667Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      {job.location}
-                    </span>
-                    <span className="job-type-tag">{job.type}</span>
+              <React.Fragment key={job.id}>
+                <div className={`job-card ${selectedJob?.id === job.id ? 'active-card' : ''}`}>
+                  <div className="job-card-header">
+                    <span className="job-dept-tag">{job.department}</span>
+                    <div className="job-meta">
+                      <span className="job-location">
+                        <svg width="12" height="14" viewBox="0 0 12 14" fill="none" className="meta-icon" aria-hidden="true">
+                          <path d="M6 7.66667C6.92047 7.66667 7.66667 6.92047 7.66667 6C7.66667 5.07953 6.92047 4.33333 6 4.33333C5.07953 4.33333 4.33333 5.07953 4.33333 6C4.33333 6.92047 5.07953 7.66667 6 7.66667Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M6 12.6667C8.66667 10.6667 11 8.24 11 6C11 3.23857 8.76142 1 6 1C3.23858 1 1 3.23857 1 6C1 8.24 3.33333 10.6667 6 12.6667Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        {job.location}
+                      </span>
+                      <span className="job-type-tag">{job.type}</span>
+                    </div>
+                  </div>
+                  <h3 className="job-card-title">{job.title}</h3>
+                  <p className="job-card-summary">{job.summary}</p>
+                  <div className="job-card-actions">
+                    <button 
+                      className="button button-secondary view-details-btn" 
+                      onClick={() => handleOpenDetails(job)}
+                    >
+                      View Details
+                    </button>
+                    <button 
+                      className="button button-primary apply-now-btn"
+                      onClick={(e) => handleOpenApply(job, e)}
+                    >
+                      Apply Now
+                    </button>
                   </div>
                 </div>
-                <h3 className="job-card-title">{job.title}</h3>
-                <p className="job-card-summary">{job.summary}</p>
-                <div className="job-card-actions">
-                  <button 
-                    className="button button-secondary view-details-btn" 
-                    onClick={() => handleOpenDetails(job)}
-                  >
-                    View Details
-                  </button>
-                  <button 
-                    className="button button-primary apply-now-btn"
-                    onClick={(e) => handleOpenApply(job, e)}
-                  >
-                    Apply Now
-                  </button>
-                </div>
-              </div>
+
+                {selectedJob && selectedJob.id === job.id && (
+                  <div ref={detailsRef} className="job-inline-details-wrapper">
+                    {/* Header */}
+                    <div className="modal-header">
+                      <div>
+                        <span className="job-dept-tag">{selectedJob.department}</span>
+                        <h2>{selectedJob.title}</h2>
+                        <div className="modal-job-meta">
+                          <span>
+                            <svg width="12" height="14" viewBox="0 0 12 14" fill="none" className="meta-icon">
+                              <path d="M6 7.66667C6.92047 7.66667 7.66667 6.92047 7.66667 6C7.66667 5.07953 6.92047 4.33333 6 4.33333C5.07953 4.33333 4.33333 5.07953 4.33333 6C4.33333 6.92047 5.07953 7.66667 6 7.66667Z" stroke="currentColor" strokeWidth="1.5"/>
+                              <path d="M6 12.6667C8.66667 10.6667 11 8.24 11 6C11 3.23857 8.76142 1 6 1C3.23858 1 1 3.23857 1 6C1 8.24 3.33333 10.6667 6 12.6667Z" stroke="currentColor" strokeWidth="1.5"/>
+                            </svg>
+                            {selectedJob.location}
+                          </span>
+                          <span className="dot">•</span>
+                          <span>{selectedJob.type}</span>
+                        </div>
+                      </div>
+                      <button className="close-modal-btn" onClick={() => setSelectedJob(null)} aria-label="Close details">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </button>
+                    </div>
+
+                    {/* Body */}
+                    <div className="modal-body">
+                      {!showApplyForm ? (
+                        /* Mode A: Show Job Description Details */
+                        <div className="modal-details-view">
+                          <div className="job-description-content">
+                            {selectedJob.description.split('\n\n').map((paragraph, index) => {
+                              if (paragraph.startsWith('Key Responsibilities:') || paragraph.startsWith('Requirements:')) {
+                                const lines = paragraph.split('\n');
+                                const header = lines[0];
+                                const items = lines.slice(1);
+                                return (
+                                  <div key={index} className="desc-section">
+                                    <h3>{header}</h3>
+                                    <ul>
+                                      {items.map((item, i) => (
+                                        <li key={i}>{item.replace(/^•\s*/, '')}</li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                );
+                              }
+                              return <p key={index}>{paragraph}</p>;
+                            })}
+                          </div>
+
+                          <div className="modal-actions-footer">
+                            <button 
+                              className="button button-secondary" 
+                              onClick={() => setSelectedJob(null)}
+                            >
+                              Close Details
+                            </button>
+                            <button 
+                              className="button button-primary" 
+                              onClick={() => {
+                                setShowApplyForm(true);
+                                setTimeout(() => {
+                                  detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }, 50);
+                              }}
+                            >
+                              Apply for this Role
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        /* Mode B: Application Form */
+                        <div className="modal-apply-view">
+                          {submitted ? (
+                            <div className="success-state">
+                              <div className="success-icon-wrapper">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="success-check-icon">
+                                  <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                              </div>
+                              <h3>Application Submitted!</h3>
+                              <p>
+                                Thank you for applying for the <strong>{selectedJob.title}</strong> role. Our talent acquisition team will review your application and contact you soon.
+                              </p>
+                              <button 
+                                className="button button-primary" 
+                                onClick={() => setSelectedJob(null)}
+                              >
+                                Close Window
+                              </button>
+                            </div>
+                          ) : (
+                            <form className="application-form" onSubmit={handleFormSubmit}>
+                              <div className="form-intro">
+                                <h3>Apply for {selectedJob.title}</h3>
+                                <p>Complete the form below to submit your details and resume to our hiring managers.</p>
+                              </div>
+
+                              <div className="form-group-row">
+                                <div className="form-group">
+                                  <label htmlFor="fullName">Full Name *</label>
+                                  <input 
+                                    type="text" 
+                                    id="fullName" 
+                                    name="fullName" 
+                                    required 
+                                    value={formData.fullName}
+                                    onChange={handleInputChange}
+                                    placeholder="John Doe"
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <label htmlFor="email">Email Address *</label>
+                                  <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    required 
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    placeholder="john@example.com"
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="form-group-row">
+                                <div className="form-group">
+                                  <label htmlFor="phone">Phone Number</label>
+                                  <input 
+                                    type="tel" 
+                                    id="phone" 
+                                    name="phone" 
+                                    value={formData.phone}
+                                    onChange={handleInputChange}
+                                    placeholder="(555) 000-0000"
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <label htmlFor="resume-file">Upload Resume (PDF/Word) *</label>
+                                  <div className="file-input-wrapper">
+                                    <input 
+                                      type="file" 
+                                      id="resume-file" 
+                                      accept=".pdf,.doc,.docx"
+                                      required
+                                      onChange={handleFileChange}
+                                      style={{ display: 'none' }}
+                                    />
+                                    <button 
+                                      type="button" 
+                                      className="file-custom-btn" 
+                                      onClick={() => document.getElementById('resume-file').click()}
+                                    >
+                                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="file-icon">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="17 8 12 3 7 8"></polyline>
+                                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                                      </svg>
+                                      {formData.resumeName || "Choose file..."}
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="form-group">
+                                <label htmlFor="coverLetter">Cover Letter / Message</label>
+                                <textarea 
+                                  id="coverLetter" 
+                                  name="coverLetter" 
+                                  rows="4" 
+                                  value={formData.coverLetter}
+                                  onChange={handleInputChange}
+                                  placeholder="Tell us briefly why you are a great fit for this position..."
+                                ></textarea>
+                              </div>
+
+                              <div className="form-actions-footer">
+                                <button 
+                                  type="button" 
+                                  className="button button-secondary" 
+                                  onClick={() => setShowApplyForm(false)}
+                                  disabled={submitting}
+                                >
+                                  Back to Description
+                                </button>
+                                <button 
+                                  type="submit" 
+                                  className="button button-primary submit-app-btn"
+                                  disabled={submitting}
+                                >
+                                  {submitting ? "Submitting..." : "Submit Application"}
+                                </button>
+                              </div>
+                            </form>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </React.Fragment>
             ))
           ) : (
             <div className="no-jobs-state">
@@ -285,208 +506,6 @@ const Careers = () => {
           )}
         </div>
       </section>
-
-      {/* Modern, Detailed Modal */}
-      {selectedJob && (
-        <div className="modal-backdrop active" onClick={() => setSelectedJob(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            {/* Modal Header */}
-            <div className="modal-header">
-              <div>
-                <span className="job-dept-tag">{selectedJob.department}</span>
-                <h2>{selectedJob.title}</h2>
-                <div className="modal-job-meta">
-                  <span>
-                    <svg width="12" height="14" viewBox="0 0 12 14" fill="none" className="meta-icon">
-                      <path d="M6 7.66667C6.92047 7.66667 7.66667 6.92047 7.66667 6C7.66667 5.07953 6.92047 4.33333 6 4.33333C5.07953 4.33333 4.33333 5.07953 4.33333 6C4.33333 6.92047 5.07953 7.66667 6 7.66667Z" stroke="currentColor" strokeWidth="1.5"/>
-                      <path d="M6 12.6667C8.66667 10.6667 11 8.24 11 6C11 3.23857 8.76142 1 6 1C3.23858 1 1 3.23857 1 6C1 8.24 3.33333 10.6667 6 12.6667Z" stroke="currentColor" strokeWidth="1.5"/>
-                    </svg>
-                    {selectedJob.location}
-                  </span>
-                  <span className="dot">•</span>
-                  <span>{selectedJob.type}</span>
-                </div>
-              </div>
-              <button className="close-modal-btn" onClick={() => setSelectedJob(null)} aria-label="Close modal">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-            </div>
-
-            {/* Modal Body */}
-            <div className="modal-body">
-              {!showApplyForm ? (
-                /* Mode A: Show Job Description Details */
-                <div className="modal-details-view">
-                  <div className="job-description-content">
-                    {selectedJob.description.split('\n\n').map((paragraph, index) => {
-                      if (paragraph.startsWith('Key Responsibilities:') || paragraph.startsWith('Requirements:')) {
-                        const lines = paragraph.split('\n');
-                        const header = lines[0];
-                        const items = lines.slice(1);
-                        return (
-                          <div key={index} className="desc-section">
-                            <h3>{header}</h3>
-                            <ul>
-                              {items.map((item, i) => (
-                                <li key={i}>{item.replace(/^•\s*/, '')}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        );
-                      }
-                      return <p key={index}>{paragraph}</p>;
-                    })}
-                  </div>
-
-                  <div className="modal-actions-footer">
-                    <button 
-                      className="button button-secondary" 
-                      onClick={() => setSelectedJob(null)}
-                    >
-                      Back to Listings
-                    </button>
-                    <button 
-                      className="button button-primary" 
-                      onClick={() => setShowApplyForm(true)}
-                    >
-                      Apply for this Role
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                /* Mode B: Application Form */
-                <div className="modal-apply-view">
-                  {submitted ? (
-                    <div className="success-state">
-                      <div className="success-icon-wrapper">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2.5" className="success-check-icon">
-                          <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                      </div>
-                      <h3>Application Submitted!</h3>
-                      <p>
-                        Thank you for applying for the <strong>{selectedJob.title}</strong> role. Our talent acquisition team will review your application and contact you soon.
-                      </p>
-                      <button 
-                        className="button button-primary" 
-                        onClick={() => setSelectedJob(null)}
-                      >
-                        Close Window
-                      </button>
-                    </div>
-                  ) : (
-                    <form className="application-form" onSubmit={handleFormSubmit}>
-                      <div className="form-intro">
-                        <h3>Apply for {selectedJob.title}</h3>
-                        <p>Complete the form below to submit your details and resume to our hiring managers.</p>
-                      </div>
-
-                      <div className="form-group-row">
-                        <div className="form-group">
-                          <label htmlFor="fullName">Full Name *</label>
-                          <input 
-                            type="text" 
-                            id="fullName" 
-                            name="fullName" 
-                            required 
-                            value={formData.fullName}
-                            onChange={handleInputChange}
-                            placeholder="John Doe"
-                          />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="email">Email Address *</label>
-                          <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            required 
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            placeholder="john@example.com"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="form-group-row">
-                        <div className="form-group">
-                          <label htmlFor="phone">Phone Number</label>
-                          <input 
-                            type="tel" 
-                            id="phone" 
-                            name="phone" 
-                            value={formData.phone}
-                            onChange={handleInputChange}
-                            placeholder="(555) 000-0000"
-                          />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="resume-file">Upload Resume (PDF/Word) *</label>
-                          <div className="file-input-wrapper">
-                            <input 
-                              type="file" 
-                              id="resume-file" 
-                              accept=".pdf,.doc,.docx"
-                              required
-                              onChange={handleFileChange}
-                              style={{ display: 'none' }}
-                            />
-                            <button 
-                              type="button" 
-                              className="file-custom-btn" 
-                              onClick={() => document.getElementById('resume-file').click()}
-                            >
-                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="file-icon">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="17 8 12 3 7 8"></polyline>
-                                <line x1="12" y1="3" x2="12" y2="15"></line>
-                              </svg>
-                              {formData.resumeName || "Choose file..."}
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="form-group">
-                        <label htmlFor="coverLetter">Cover Letter / Message</label>
-                        <textarea 
-                          id="coverLetter" 
-                          name="coverLetter" 
-                          rows="4" 
-                          value={formData.coverLetter}
-                          onChange={handleInputChange}
-                          placeholder="Tell us briefly why you are a great fit for this position..."
-                        ></textarea>
-                      </div>
-
-                      <div className="form-actions-footer">
-                        <button 
-                          type="button" 
-                          className="button button-secondary" 
-                          onClick={() => setShowApplyForm(false)}
-                          disabled={submitting}
-                        >
-                          Back to Description
-                        </button>
-                        <button 
-                          type="submit" 
-                          className="button button-primary submit-app-btn"
-                          disabled={submitting}
-                        >
-                          {submitting ? "Submitting..." : "Submit Application"}
-                        </button>
-                      </div>
-                    </form>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
