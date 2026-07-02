@@ -689,7 +689,24 @@ li {
   color: var(--text-muted);
 }
 
-/* Filter Container */
+/* Recruiterflow iframe wrapper */
+.recruiterflow-widget-wrapper {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 0.5rem;
+}
+
+.recruiterflow-widget-wrapper iframe {
+  display: block;
+  width: 1px;
+  min-width: 100%;
+  border: none;
+  border-radius: 16px;
+}
+
 .filter-container {
   display: flex;
   justify-content: center;
