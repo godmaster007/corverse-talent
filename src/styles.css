@@ -689,82 +689,24 @@ li {
   color: var(--text-muted);
 }
 
-/* Careers Portal CTA */
-.careers-portal-cta {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Recruiterflow iframe wrapper */
+.recruiterflow-widget-wrapper {
   width: 100%;
-}
-
-.careers-portal-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 24px;
-  padding: 4rem 3rem;
-  max-width: 640px;
-  width: 100%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.25rem;
-  position: relative;
+  border-radius: 20px;
   overflow: hidden;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 0.5rem;
 }
 
-.careers-portal-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(56, 189, 248, 0.06) 0%, transparent 70%);
-  pointer-events: none;
+.recruiterflow-widget-wrapper iframe {
+  display: block;
+  width: 1px;
+  min-width: 100%;
+  border: none;
+  border-radius: 16px;
 }
 
-.careers-portal-card:hover {
-  border-color: rgba(56, 189, 248, 0.3);
-  box-shadow: 0 8px 40px rgba(56, 189, 248, 0.08);
-}
-
-.portal-icon-wrapper {
-  width: 72px;
-  height: 72px;
-  border-radius: 18px;
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent);
-  flex-shrink: 0;
-}
-
-.careers-portal-card h3 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin: 0;
-}
-
-.careers-portal-card p {
-  font-size: 1.05rem;
-  color: var(--text-muted);
-  line-height: 1.65;
-  max-width: 48ch;
-  margin: 0;
-}
-
-.careers-portal-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-  padding: 0.875rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-}
 
 .filter-container {
   display: flex;
